@@ -13,7 +13,7 @@ services:
       - "53:53/tcp"
       - "53:53/udp"
     volumes:
-      - ./src:/opt
+      - ./app:/opt/app
       - ./.docker/.www:/var/www
       - ./.docker/postgres/data:/var/lib/postgresql/15/data
       - ./.docker/dnsmasq/addn.hosts:/etc/dnsmasq.d/addn.hosts
