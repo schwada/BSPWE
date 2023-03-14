@@ -3,12 +3,15 @@ version: '3'
 services:
   hosting:
     build: .
+    privileged: true
     ports:
       - "80:80"
       - "8888:8888"
       - "8808:8808"
       - "0.0.0.0:21:21"
       - "0.0.0.0:20:20"
+      - "53:53/tcp"
+      - "53:53/udp"
     volumes:
       - ./src:/opt
       - ./.docker/.www:/var/www
