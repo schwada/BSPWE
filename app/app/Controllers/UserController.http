@@ -1,0 +1,15 @@
+GET http://localhost:8000/users HTTP/1.1
+
+###
+
+POST http://localhost:8000/users HTTP/1.1
+content-type: application/json
+
+{
+    "email": "dszone51@gmail.com",
+	"first_name": "david",
+	"last_name": "schwam",
+	"display": "dszone",
+    "password": "dszone"
+}
+

@@ -1,0 +1,7 @@
+server {
+	listen 80;
+	listen [::]:80;
+	server_name XXX.cz *.XXX.YYY;
+	root /var/www/XXX;
+	index index.html;
+}
