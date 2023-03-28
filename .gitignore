@@ -1,1 +1,5 @@
-app-running
+/app-running
+/.docker/postgres/data
+/.docker/nginx/http.d/*
+/.docker/dnsmasq/hosts/*
+/.docker/www/*

@@ -4,6 +4,7 @@ import './shared/data/util/fetch';
 import './shared/styles/tailwind.css';
 import './shared/styles/main.css';
 import './shared/localization';
+import './shared/store/order';
 import App from './app/App';
 
 hydrate(sessionStorage.getItem('token')).then(() => {

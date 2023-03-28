@@ -1,9 +1,10 @@
 <?php
 
 use App\Auth\{AuthenticationInterface, AuthenticationService};
-use App\Middleware\AuthenticationMiddleware;
 use Illuminate\Container\Container;
 use Slim\Factory\AppFactory;
+use Predis\ClientInterface as RedisInterface;
+use Predis\Client as Redis;
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
@@ -12,7 +13,7 @@ AppFactory::setContainer($container);
 $app = AppFactory::create();
 
 $container->singleton(AuthenticationInterface::class, fn($c) => new AuthenticationService($c));
-$container->singleton(AuthenticationMiddleware::class, fn($c) => new AuthenticationMiddleware($c));
+$container->singleton(RedisInterface::class, fn($c) => new Redis("tcp://127.0.0.1:6379"));
 
 $container->bind("settings", function ($c) {
     return [

@@ -1,5 +1,6 @@
 <?php
 $local_ip = getHostByName(getHostName());
+echo "$local_ip\n";
 $hosts = [
     "/etc/dnsmasq.d/users.hosts.dat" => "/etc/dnsmasq.d/users.hosts",
     "/etc/dnsmasq.d/priority.hosts.dat" => "/etc/dnsmasq.d/priority.hosts",
@@ -14,6 +15,7 @@ function processFile($unprocessed_name, $destination_name, $local_ip) {
             fwrite($destination_file, str_replace("XXX", $local_ip, $line));
         }
         // conf test should be done here
+        // backup too -> "transactions"
         flock($unprocessed_file, LOCK_UN);
         flock($destination_file, LOCK_UN);
     } else {

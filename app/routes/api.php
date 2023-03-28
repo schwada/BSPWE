@@ -17,11 +17,8 @@ $app->group('/users', function (Group $group) {
     $group->post('', [App\Controllers\UserController::class, 'register']);
 });
 
-$app->group('/products', function (Group $group) {
-    $group->get('', [App\Controllers\ProductController::class, 'index']);
-    $group->post('', [App\Controllers\ProductController::class, 'create'])->add(AuthenticationMiddleware::class);;
-    $group->get('/user', [App\Controllers\ProductController::class, 'userIndex'])->add(AuthenticationMiddleware::class);
-    $group->get('/{id}', [App\Controllers\ProductController::class, 'read']);
+$app->group('/hosting', function (Group $group) {
+    $group->get('', [App\Controllers\HostingController::class, 'createHosting']);
 });
 
 // ->add(new AuthMiddleware($container->get(AuthenticationInterface::class));

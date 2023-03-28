@@ -16,11 +16,9 @@ class AuthenticationController {
     
     private AuthenticationInterface $auth;
 
-
     public function __construct(Container $container) {
         $this->auth = $container->get(AuthenticationInterface::class);
     }
-
 
     public function get(SlimRequest $request, Response $response): Response {
         $user = $this->auth->getAuthenticated();

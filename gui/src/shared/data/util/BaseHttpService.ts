@@ -3,7 +3,8 @@ export class HttpService {
     public baseUrl: string = import.meta.env.VITE_API_URL;
     public headers: Headers = new Headers({
         'Content-Type': 'application/json',  
-        'Accept': 'application/json'
+        'Accept': 'application/json',
+        "Access-Control-Allow-Origin": "*",
     });
     
     public defaults: RequestInit = {
@@ -12,7 +13,9 @@ export class HttpService {
 
     public async fetch(input: RequestInfo, init?: RequestInit): Promise<any> {
         const response = await fetch(this.baseUrl + input, {...this.defaults, ...init});
-        return response.json();
+        try{ // if body empty
+            return await response.json();
+        } catch { }
     }
 
     public addDefault(defaults: RequestInit) {

@@ -1,11 +1,11 @@
+import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 
 export default function Home() {
 
-    
+    const [ domain,setDomain ] = useState<string>("");
     const { t } = useTranslation();
-    const ran = (min: number, max: number, mult:number) => Math.ceil((Math.random() * (max - min) + min) / mult) * mult;
     const anim = [
         `animate-[MoveBackForth_15s_linear_infinite] animation-delay-3000`,
         `animate-[MoveBackForth_35s_linear_infinite] animation-delay-1600`,
@@ -23,13 +23,13 @@ export default function Home() {
                     <div className="mt-5 flex items-center">
                         <input id="domain" type="text" placeholder={t('page.home.check-placeholder')} autoFocus
                         className="peer h-12 px-4 w-full rounded-md border-[3px] border-gray-300 text-gray-900
-                        focus:outline-none focus:border-sky-500" />
-                        <button className="btn btn-blue h-12 w-full flex-1 px-6 ml-2 font-semibold">{t('page.home.check')}</button>
+                        focus:outline-none focus:border-sky-500" value={domain} onChange={e => setDomain(e.target.value)} />
+                        <Link to={`/domain?search=${domain}`} className="btn btn-blue h-12 w-full flex-1 px-6 ml-2 font-semibold">{t('page.home.check')}</Link>
                     </div>
                 </div>
                 <div className="w-1/2 h-full min-h-full flex flex-col flex-1 overflow-hidden">
                     {[0,20,40].map((value, index) => (
-                        <div className={"relative opacity-0 flex flex-row items-center " + anim[index]}
+                        <div key={index} className={"relative opacity-0 flex flex-row items-center " + anim[index]}
                         style={{top : value + "%"}}>
                             <div className="airplane-line w-16 h-2"></div>
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" className="w-16 fill-blue-400">
@@ -64,7 +64,7 @@ export default function Home() {
                         </Link>
                     </div>
                 </div>
-                <div className="flex-1 justify-between flex flex-col bg-slate-100 rounded-md h-full m-5 p-8 w-1/3">
+                <div className="flex-1 justify-between flex flex-col bg-slate-100 rounded-md h-full m-5 p-8 w-1/3 opacity-80">
                     <div>
                         <h2 className="font-['customsans'] text-gray-500 text-4xl">{t('page.home.product_mail.header')}</h2>
                         <p className="w-5/6 mt-1 text-gray-600">{t('page.home.product_mail.leading')}</p>
@@ -82,9 +82,9 @@ export default function Home() {
                             <p className="font-['customsans'] text-gray-700 text-3xl mt-1">0Kč</p>
                             <p className="text-gray-500 text-sm">{t('page.home.monthly')}</p> 
                         </div>
-                        <Link to="/emails" className="btn bg-blue-500 hover:bg-blue-300 text-white min-w-46 font-bold text-lg">
+                        <button disabled className="btn bg-blue-400 hover:bg-blue-300 text-white min-w-46 font-bold text-lg">
                             {t('page.home.more')}
-                        </Link>
+                        </button>
                     </div>
                 </div>
             </div>

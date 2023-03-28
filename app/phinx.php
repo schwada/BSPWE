@@ -13,7 +13,7 @@ return [
         'test' => [
             'adapter' => 'pgsql',
             'host' => '127.0.0.1',
-            'name' => 'makr',
+            'name' => 'upcehosting',
             'user' => 'postgres',
             'pass' => 'postgres',
             'port' => '5432',

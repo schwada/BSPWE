@@ -16,11 +16,13 @@ export default function Register() {
     }
 
     const create = (data: any) => {
-        delete data['confirmation'];
-        BaseHttpService.fetch('/users', { method: 'POST', body: JSON.stringify(data) }).then(async (resp) => {
+        // delete data['confirmation'];
+        const stringdata = JSON.stringify(data);
+        BaseHttpService.fetch('/users', { method: 'POST', body: stringdata }).then(async (resp) => {
             toast(t('page.register.success'), { className: ToastSuccess });
             navigate("/auth/login");
         }).catch(e => {
+            console.log(e);
             toast(t('page.register.error.' + e.message), { className: ToastDanger });
         });
     };
@@ -64,7 +66,7 @@ export default function Register() {
             <div className="relative w-full my-3">
                 <input id="display" type="text" placeholder={t('page.register.display')}
                 className="peer h-12 px-4 w-full rounded-md border-2 border-gray-300 text-gray-900 placeholder-transparent
-                focus:outline-none focus:border-sky-500" {...register("display")} />
+                focus:outline-none focus:border-sky-500" {...register("display", { required: true})} />
                 <label htmlFor="display" className="absolute px-1 bg-white left-4 -top-2 text-gray-600 text-sm transition-all
                 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-2.5
                 peer-focus:-top-2 peer-focus:text-sky-500 peer-focus:text-sm">
@@ -98,9 +100,6 @@ export default function Register() {
                 peer-focus:-top-2 peer-focus:text-sky-500 peer-focus:text-sm">
                     {t('page.register.phone')}
                 </label>
-                {errors.phone && (
-                    <span className="text-xs text-red-500">This field is required</span>
-                )}
             </div>
 
             
@@ -122,15 +121,20 @@ export default function Register() {
                 <div className="relative w-full my-3 lg:pl-2">
                     <input id="confirmation" type="password" placeholder={t('page.register.confirmation')}
                     className="peer h-12 px-4 w-full rounded-md border-2 border-gray-300 text-gray-900 placeholder-transparent
-                    focus:outline-none focus:border-sky-500"  {...register("confirmation", { required: true, validate: confirmation })} />
+                    focus:outline-none focus:border-sky-500"  {...register("confirmation", { required: true, validate: { confirmation: confirmation } })} />
                     <label htmlFor="confirmation" className="absolute px-1 bg-white left-4 -top-2 text-gray-600 text-sm transition-all
                     peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-2.5
                     peer-focus:-top-2 peer-focus:text-sky-500 peer-focus:text-sm">
                         {t('page.register.confirmation')}
                     </label>
-                    {errors.confirmation && (
-                        <span className="text-xs text-red-500">This field is required</span>
-                    )}
+                    {errors.confirmation && (<>
+                        {errors.confirmation.type == "required" && (
+                            <span className="text-xs text-red-500">This field is required</span>
+                        )}
+                        {errors.confirmation.type == "confirmation" && (
+                            <span className="text-xs text-red-500">Passwords have to match</span>
+                        )}
+                    </>)}
                 </div>
             </div>
 

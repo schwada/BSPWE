@@ -7,7 +7,6 @@ use Fig\Http\Message\StatusCodeInterface as Status;
 use Slim\Psr7\Request as Request; 
 use Psr\Http\Message\ResponseInterface as Response;
 use Illuminate\Container\Container;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Database\QueryException;
 use Ramsey\Uuid\Uuid;
 use Valitron\Validator;
@@ -22,13 +21,9 @@ class UserController {
 	const ERROR_REQUIRED_FIELDS = "REGISTER_REQUIRED_FIELDS";
 
 	public function __construct(Container $container) {
-		// dump($container->get("settings"));
 	}
 		
 	public function index(Request $request, Response $response) {
-		// dump(User::all());
-		// $body = $response->getBody();
-		// $body->write('Hello');
 		return $response;
 	}
 
@@ -77,8 +72,6 @@ class UserController {
 		// return body?
 		return $response->withStatus(Status::STATUS_CREATED);
 	}
-
-
 
 	private function generateDisplay($length = 5) {
 		return substr(str_shuffle(str_repeat($x='0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ', ceil($length/strlen($x)) )),1,$length);

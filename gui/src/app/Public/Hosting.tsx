@@ -38,7 +38,7 @@ export default function Hosting() {
                             <p className="text-gray-500 text-sm">{t('page.home.from')}</p>
                             <p className="font-['customsans'] text-gray-700 text-3xl mt-1">0Kč</p>
                             <p className="text-gray-500 text-sm">{t('page.home.monthly')}</p> 
-                            <Link to="/order" className="btn btn-blue w-2/3 font-bold">{t('page.home.order')}</Link>
+                            <Link to="/domain?plan=basic" className="btn btn-blue w-2/3 font-bold">{t('page.home.order')}</Link>
                             <p className="text-gray-500 text-sm">{t('page.home.monthlyVAT')} 0Kč</p> 
                         </div>
                     </div>

@@ -7,7 +7,8 @@ $newdomain = "www.poopoopeepee.cz";
 function addHostsfileRecord($hostsfile, $hosts_record): void {
     $handle = fopen($hostsfile, "a");
     if (flock($handle, LOCK_EX)) {
-
+        // probably should test config
+        // also should probably backup before writing
         fwrite($handle, $hosts_record);
         flock($handle, LOCK_UN);
     } else {
@@ -55,9 +56,8 @@ function removeHostfileRecordByDomain($hostsfile, $domain): void {
     fclose($handle);
 }
 
-echo "wrote to file";
-addHostsfileRecord($unloaded_hostsfile ,"XXX $newdomain #user=peepee\n");
 // if(findHostfileRecord($unloaded_hostsfile, $newdomain)) {
 //     removeHostfileRecordByDomain($unloaded_hostsfile, $newdomain);
 // } else {
+//     addHostsfileRecord($unloaded_hostsfile ,"XXX $newdomain #user=peepee\n");
 // }

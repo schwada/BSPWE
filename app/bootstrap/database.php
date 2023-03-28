@@ -5,7 +5,7 @@ $capsule = new Capsule($container);
 $capsule->addConnection([
     'driver' => 'pgsql',
     'host' => '127.0.0.1',
-    'database' => 'makr',
+    'database' => 'upcehosting',
     'username' => 'postgres',
     'password' => 'postgres',
     'charset' => 'utf8',
