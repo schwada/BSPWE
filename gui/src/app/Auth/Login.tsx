@@ -1,21 +1,25 @@
 import toast from "react-hot-toast/headless";
 import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink, useNavigate, useSearchParams } from "react-router-dom";
 import { LoginData, signIn } from "../../shared/store/auth";
 import { ToastDanger, ToastSuccess } from "../../shared/components/Toasts";
 
 
 export default function Login() {
-
     const { register, handleSubmit, formState: { errors } } = useForm<LoginData>();
+    const [ searchParams ] = useSearchParams();
     const { t } = useTranslation();
     const navigate = useNavigate();
 
     const login = (data: LoginData) => {
         signIn(data).then(() => {
             toast(t('general.signin'), { className: ToastSuccess });
-            navigate("/");
+            if(searchParams.has("domain") && searchParams.has("plan")) {
+                navigate("/domain?" + searchParams.toString())
+            } else {
+                navigate("/dashboard?" + searchParams.toString());
+            }
         }).catch(e => {
             toast(t('page.login.error.' + e.message), { className: ToastDanger });
         });
@@ -60,10 +64,10 @@ export default function Login() {
             </button>
 
             <div className="w-full mt-3 flex justify-between items-center text-slate-500">   
-                <NavLink to="/auth/register" className="underline hover:no-underline cursor-pointer hover:text-slate-700 duration-150">
+                <NavLink to={"/auth/register?" + searchParams.toString()} className="underline hover:no-underline cursor-pointer hover:text-slate-700 duration-150">
                     {t('page.login.create')}
                 </NavLink>
-                <NavLink to="/auth/recovery" className="underline hover:no-underline cursor-pointer hover:text-slate-700 duration-150">
+                <NavLink to={"/auth/recovery?" + searchParams.toString()} className="underline hover:no-underline cursor-pointer hover:text-slate-700 duration-150">
                     {t('page.login.recovery')}
                 </NavLink>
             </div>

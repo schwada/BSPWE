@@ -17,7 +17,10 @@ class User extends Model {
 
     protected $hidden = [ 
         'id',
-        'password'
+        'password',
+        'created_at',
+        'updated_at',
+        'email_verified_at'
     ];
     
     // protected $guarded = [];
@@ -26,7 +29,15 @@ class User extends Model {
     // ];
 
 
-    public function products(){
-        return $this->hasMany(Product::class);
+    public function domains(){
+        return $this->hasMany(Domain::class);
+    }
+
+    public function hostings(){
+        return $this->hasMany(Hosting::class);
+    }
+
+    public function databases(){
+        return $this->hasMany(Database::class);
     }
 }

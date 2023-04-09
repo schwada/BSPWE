@@ -18,7 +18,9 @@ $app->group('/users', function (Group $group) {
 });
 
 $app->group('/hosting', function (Group $group) {
-    $group->get('', [App\Controllers\HostingController::class, 'createHosting']);
+    $group->get('', [App\Controllers\HostingController::class, 'index'])->add(AuthenticationMiddleware::class);
+    $group->post('', [App\Controllers\HostingController::class, 'create'])->add(AuthenticationMiddleware::class);
+    $group->delete('', [App\Controllers\HostingController::class, 'delete'])->add(AuthenticationMiddleware::class);
 });
 
 // ->add(new AuthMiddleware($container->get(AuthenticationInterface::class));

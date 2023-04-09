@@ -8,7 +8,6 @@ use App\Models\Payment;
 class HomeController {
 
     public function __construct(Container $container) {
-      // dump($container->get("settings"));
     }
 
     public function index(Request $request, Response $response){

@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Footer from "../shared/components/Footer";
 import Header from "../shared/components/Header";
 import Toasts from "../shared/components/Toasts";

@@ -6,7 +6,7 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Capsule\Manager as Capsule;
 use Phinx\Migration\AbstractMigration;
 
-final class CreateProductsTable extends AbstractMigration {
+final class CreateDatabasesTable extends AbstractMigration {
     
     private $schema;
 
@@ -15,22 +15,20 @@ final class CreateProductsTable extends AbstractMigration {
     }
 
     public function up() {
-        $this->schema->create('products', function (Blueprint $table) {
+        $this->schema->create('databases', function (Blueprint $table) {
             $table->increments('id');
             $table->uuid('uuid')->unique();
-            $table->string('title');
-            $table->string('slug')->unique();
-            $table->text('desc')->nullable();
-            $table->string('stripe_id');
-            $table->string('file_path');
-            $table->integer('price');
+            $table->string('domain');
+            $table->string('tld');
+            $table->string('status');
+            $table->string('db')->nullable();
             $table->timestamps();
             $table->foreignIdFor(User::class);
         });
     }
 
     public function down() {
-       $this->schema->drop('products');
+       $this->schema->drop('domains');
     }
 
 }

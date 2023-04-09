@@ -12,7 +12,7 @@ RUN composer install
 ###########################################
 FROM alpine:latest as environment
 
-RUN apk update && apk add --no-cache redis nginx dnsmasq vsftpd openssl php php-fpm php-json php-pdo_pgsql php-pgsql php-mbstring php-iconv php-pdo php-pcntl php-posix php-session postgresql openrc 
+RUN apk update && apk add --no-cache redis nginx dnsmasq vsftpd openssl php php-fpm php-json php-pdo_pgsql php-pgsql php-openssl php-mbstring php-iconv php-pdo php-pcntl php-posix php-session postgresql openrc 
 
 COPY ./.docker/dnsmasq/priority.hosts.dat /etc/dnsmasq.d/priority.hosts.dat
 COPY ./.docker/dnsmasq/users.hosts.dat /etc/dnsmasq.d/users.hosts.dat
@@ -28,7 +28,6 @@ COPY ./.docker/openrc/upcehosting /etc/init.d/upcehosting
 
 COPY --from=builder /opt/gui/dist /opt/gui
 COPY --from=builder /opt/app /opt/app
-COPY ./process /opt/process
 
 RUN mkdir /run/postgresql && mkdir -p /var/lib/postgresql && \
     chown postgres /run/postgresql && chown postgres /var/lib/postgresql && \

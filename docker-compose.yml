@@ -3,11 +3,7 @@ version: '3'
 services:
   hosting:
     build: .
-    ports:
-      - "5432:5432"
     volumes:
-      - ./app-running/:/opt/app
-      - ./process/:/opt/process
       - ./.docker/www:/var/www
       - ./.docker/postgres/data:/var/lib/postgresql/data
       - ./.docker/dnsmasq/users.hosts.dat:/etc/dnsmasq.d/users.hosts.dat

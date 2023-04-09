@@ -1,31 +1,26 @@
 export class HttpService {
 
     public baseUrl: string = import.meta.env.VITE_API_URL;
-    public headers: Headers = new Headers({
+    public headers = {
         'Content-Type': 'application/json',  
-        'Accept': 'application/json',
         "Access-Control-Allow-Origin": "*",
-    });
+        'Accept': 'application/json'
+    };
     
     public defaults: RequestInit = {
         headers: this.headers
     };
 
     public async fetch(input: RequestInfo, init?: RequestInit): Promise<any> {
-        const response = await fetch(this.baseUrl + input, {...this.defaults, ...init});
+        const resp = await fetch(this.baseUrl + input, { ...this.defaults, ...init });
         try{ // if body empty
-            return await response.json();
+            return await resp.json();
         } catch { }
     }
 
     public addDefault(defaults: RequestInit) {
-        this.defaults = {...this.defaults, ...defaults };
+        this.defaults.headers = { ...this.defaults.headers, ...defaults.headers };
     }
-
-    public getDefaults() {
-        return this.defaults;
-    }
-
 }
 
 export default new HttpService();

@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast/headless";
 import { useTranslation } from "react-i18next";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink, useNavigate, useSearchParams } from "react-router-dom";
 import { ToastDanger, ToastSuccess } from "../../shared/components/Toasts";
 import BaseHttpService from "../../shared/data/util/BaseHttpService";
 
@@ -9,6 +9,7 @@ export default function Register() {
 
     const { t } = useTranslation();
     const { register, handleSubmit, watch, formState: { errors } } = useForm();
+    const [ searchParams ] = useSearchParams();
     const navigate = useNavigate();
 
     const confirmation = async (value: string) => {
@@ -20,7 +21,7 @@ export default function Register() {
         const stringdata = JSON.stringify(data);
         BaseHttpService.fetch('/users', { method: 'POST', body: stringdata }).then(async (resp) => {
             toast(t('page.register.success'), { className: ToastSuccess });
-            navigate("/auth/login");
+            navigate("/auth/login?" + searchParams.toString());
         }).catch(e => {
             console.log(e);
             toast(t('page.register.error.' + e.message), { className: ToastDanger });
@@ -146,7 +147,7 @@ export default function Register() {
             </button>
 
             <div className="mt-3 flex w-full text-slate-500">
-                <NavLink className="underline hover:no-underline cursor-pointer hover:text-slate-700 duration-150" to="/auth/login">
+                <NavLink className="underline hover:no-underline cursor-pointer hover:text-slate-700 duration-150" to={"/auth/login?" + searchParams.toString()}>
                     {t('page.register.back')}
                 </NavLink>
             </div>
